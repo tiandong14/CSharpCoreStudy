@@ -1,0 +1,26 @@
+﻿@model List<WebApplication3.Models.Student>
+
+@{
+    Layout = "~/Views/Shard/_Layout.cshtml";
+    ViewBag.Title = "学生列表页";
+}
+<table border="1" cellpadding="21" cellspacing="">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>班级</th>
+            <th>邮箱</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.ClassName</td>
+                <td>@item.Email</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

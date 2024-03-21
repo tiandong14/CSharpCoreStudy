@@ -1,0 +1,18 @@
+﻿@model WebApplication3.ViewModels.HomeDetailsViewModel
+
+@{
+    Layout = "~/Views/Shard/_Layout.cshtml";
+    ViewBag.Title = "学生详情页";
+
+}
+<h3>Title: @Model.Title</h3>
+<div>
+    id:@Model.Student.Id
+</div>
+<div>
+    姓名:@Model.Student.Name
+</div>
+
+@section Scripts {
+    <script src="~/js/CustomScript.js"></script>
+}

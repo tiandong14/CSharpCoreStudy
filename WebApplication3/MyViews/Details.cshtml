@@ -1,0 +1,21 @@
+﻿@using  WebApplication3.Models
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <h1>MyViews Details</h1>
+    @{
+        var student = ViewData["Student"] as Student;
+    }
+    <h3>@ViewData["Title"]</h3>
+    <div>
+        id:@student.Id
+    </div>
+    <div>
+        姓名:@student.Name
+    </div>
+
+</body>
+</html>
