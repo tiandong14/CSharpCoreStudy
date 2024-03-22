@@ -10,15 +10,16 @@
             <div class="card-header">
                 <h3 class="card-title">@student.Name</h3>
             </div>
-            <img class="card-img-top" src="~/images/1.png" />
+            <img class="card-img-top img-fluid"  width="150" height="auto" src="~/images/1.png" />
 
 
             <div class="card-body text-center">
-                <h5 class="card-title">主修科目：@student.ClassName</h5>
+                <h5 class="card-title">班级：@student.ClassName</h5>
             </div>
 
             <div class="card-footer text-center">
-                <a href="#" class="btn btn-primary">查看</a>
+                <!--student.Id -->
+                <a href="/Home/Details/@student.Id" class="btn btn-primary">查看</a>
                 <a href="#" class="btn btn-primary">编辑</a>
                 <a href="#" class="btn btn-danger">删除</a>
             </div>

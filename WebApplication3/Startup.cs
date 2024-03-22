@@ -40,7 +40,7 @@ namespace WebApplication3
             app.UseMvc();
             //  app.UseMvcWithDefaultRoute();
             //
-            /*
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -53,7 +53,7 @@ namespace WebApplication3
             {
                 await context.Response.WriteAsync("Hello World zzzzz!");
             });
-             */
+             
         }
     }
 }
