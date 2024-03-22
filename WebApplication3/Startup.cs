@@ -31,19 +31,29 @@ namespace WebApplication3
             }
 
             //添加默认文件中间件
-            app.UseDefaultFiles(new DefaultFilesOptions
-            {
-                DefaultFileNames = new List<string> { "zzz.html" }
-            });
+           // app.UseDefaultFiles(new DefaultFilesOptions
+          //  {
+              //  DefaultFileNames = new List<string> { "zzz.html" }
+         //   });
             //添加静态文件
             app.UseStaticFiles();
-
-            app.UseMvcWithDefaultRoute();
-
-            app.Run(async (context) =>
+            app.UseMvc();
+            //  app.UseMvcWithDefaultRoute();
+            //
+            /*
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "defaults",
+                    template: "{controller=Home}/{action=Index}/{id?}"
+                );
+            });
+        
+                  app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Hello World zzzzz!");
             });
+             */
         }
     }
 }

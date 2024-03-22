@@ -1,25 +1,30 @@
-﻿@model List<WebApplication3.Models.Student>
+﻿@model List<Student>
 
-@{
-    ViewBag.Title = "学生列表页";
-}
-<table border="1" cellpadding="21" cellspacing="">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>班级</th>
-            <th>邮箱</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.ClassName</td>
-                <td>@item.Email</td>
-            </tr>
-        }
-    </tbody>
-</table>
+@{ ViewBag.Title = "学生列表页面"; }
+
+<div class="card-deck">
+    @foreach (var student in Model)
+    {
+
+        <div class="card m-3">
+            <div class="card-header">
+                <h3 class="card-title">@student.Name</h3>
+            </div>
+            <img class="card-img-top" src="~/images/1.png" />
+
+
+            <div class="card-body text-center">
+                <h5 class="card-title">主修科目：@student.ClassName</h5>
+            </div>
+
+            <div class="card-footer text-center">
+                <a href="#" class="btn btn-primary">查看</a>
+                <a href="#" class="btn btn-primary">编辑</a>
+                <a href="#" class="btn btn-danger">删除</a>
+            </div>
+        </div>
+    }
+</div>
+
+
 
