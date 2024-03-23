@@ -6,17 +6,55 @@
     <title>@ViewBag.Title</title>
     <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
+ 
+
 </head>
 <body>
+   
     <div class="container">
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="home" asp-action="Index">学生列表</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Create">添加学生</a>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
         @*添加bootstrap的样式类container*@
         @RenderBody()
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="quote-container">
+                    <p class="quote-text">"In the middle of difficulty lies opportunity."</p>
+                    <p class="quote-author">- Albert Einstein</p>
+                </div>
+                <div class="quote-container">
+                    <p class="quote-text">"Success is not final, failure is not fatal: It is the courage to continue that counts."</p>
+                    <p class="quote-author">- Winston Churchill</p>
+                </div>
+                <!-- Add more quote containers as needed -->
+            </div>
+        </div>
+
+
     </div>
 
 
     @if (IsSectionDefined("Scripts"))
     {@RenderSection("Scripts", required:
 false)      }
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
 
 
 </body>
