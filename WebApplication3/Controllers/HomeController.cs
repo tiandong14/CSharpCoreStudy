@@ -48,6 +48,12 @@ namespace WebApplication3.Controllers
             //绝对路径 ~/MyViews/Details.cshtml
             return View(model);
         }
+
+        public IActionResult Create()
+        {
+
+            return View();
+        }
     }
     //D:\c#Study\WebApplication3\WebApplication3\MyViews\Details.cshtml
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudentManagement.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,8 +13,8 @@ namespace WebApplication3.Models
         private List<Student> _students;
         public MockStudentRepository() {
             _students = new List<Student>();
-            _students.Add(new Student(1, "zzzz1","1班","123455@qq.com"));
-            _students.Add(new Student(2, "zzz2","2班", "567891@qq.com"));
+            _students.Add(new Student(1, "zzzz1", ClassNameEnum.FristGrade, "123455@qq.com"));
+            _students.Add(new Student(2, "zzz2", ClassNameEnum.SecondGrade, "567891@qq.com"));
         }
 
         public List<Student> GetAllStudent()
