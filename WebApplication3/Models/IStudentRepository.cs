@@ -10,5 +10,7 @@ namespace WebApplication3.Models
         //根据id获取指定学生
         Student GetStudentById(int id);
         List<Student> GetAllStudent();
+
+        Student AddStudent(Student student);
     }
 }

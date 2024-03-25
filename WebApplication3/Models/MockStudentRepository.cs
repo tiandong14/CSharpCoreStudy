@@ -17,6 +17,13 @@ namespace WebApplication3.Models
             _students.Add(new Student(2, "zzz2", ClassNameEnum.SecondGrade, "567891@qq.com"));
         }
 
+        public Student AddStudent(Student student)
+        {
+           student.Id= _students.Max(s => s.Id)+1;
+            _students.Add(student);
+            return student;
+        }
+
         public List<Student> GetAllStudent()
         {
             return this._students;

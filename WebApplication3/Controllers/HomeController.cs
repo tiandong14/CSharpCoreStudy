@@ -49,8 +49,20 @@ namespace WebApplication3.Controllers
             return View(model);
         }
 
+
         public IActionResult Create()
         {
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Student student)
+        {
+            if (ModelState.IsValid) {
+                Student NewStudent = _studentRepository.AddStudent(student);
+                return RedirectToAction("Details", new { id = NewStudent.Id });
+            }
 
             return View();
         }
