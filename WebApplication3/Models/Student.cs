@@ -13,7 +13,7 @@ namespace WebApplication3.Models
     public class Student
     {
         // 构造函数
-        public Student(int id,string name , ClassNameEnum className,string email)
+        public Student(int id, string name, ClassNameEnum className, string email)
         {
             this.Name = name;
             this.Id = id;
@@ -25,9 +25,15 @@ namespace WebApplication3.Models
             // Parameterless constructor
         }
         public int Id { get; set; }
-        [Required(ErrorMessage ="名字不能为空")]
+        [Required(ErrorMessage = "名字不能为空"), MaxLength(50, ErrorMessage = "名字不能超过50个字符")]
+        [Display(Name = "姓名")]
         public string Name { get; set; }
-        public ClassNameEnum ClassName { get; set; }
+        [Required(ErrorMessage = "请选择班级")]
+        [Display(Name = "班级")]
+        public ClassNameEnum? ClassName { get; set; }
+        [Required(ErrorMessage = "请输入邮箱")]
+        [Display(Name = "姓名")]
+        [RegularExpression(@"^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "请输入有效的邮箱地址")]
         public string Email { get; set; }
     }
 }
