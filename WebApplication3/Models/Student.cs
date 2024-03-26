@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -32,7 +33,7 @@ namespace WebApplication3.Models
         [Display(Name = "班级")]
         public ClassNameEnum? ClassName { get; set; }
         [Required(ErrorMessage = "请输入邮箱")]
-        [Display(Name = "姓名")]
+        [Display(Name = "邮箱")]
         [RegularExpression(@"^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "请输入有效的邮箱地址")]
         public string Email { get; set; }
     }

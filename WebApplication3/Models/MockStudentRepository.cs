@@ -24,7 +24,7 @@ namespace WebApplication3.Models
             return student;
         }
 
-        public List<Student> GetAllStudent()
+        public IEnumerable<Student> GetAllStudent()
         {
             return this._students;
         }
@@ -32,6 +32,11 @@ namespace WebApplication3.Models
         public Student GetStudentById(int id)
         {
             return _students.FirstOrDefault(a => a.Id == id);
+        }
+
+        public Student UpdateStudent(Student student)
+        {
+            throw new NotImplementedException();
         }
     }
 }
