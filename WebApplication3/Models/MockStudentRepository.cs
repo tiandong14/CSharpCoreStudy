@@ -24,6 +24,11 @@ namespace WebApplication3.Models
             return student;
         }
 
+        public Student DeleteStudent(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Student> GetAllStudent()
         {
             return this._students;

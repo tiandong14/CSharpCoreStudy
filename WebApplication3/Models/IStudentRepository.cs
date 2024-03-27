@@ -27,6 +27,8 @@ namespace WebApplication3.Models
         /// <returns></returns>
         Student UpdateStudent(Student student);
 
+
+        Student DeleteStudent(int id);
       
     }
 }

@@ -25,7 +25,7 @@ namespace WebApplication3
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContextPool<AppDbContext>(options =>
-     options.UseMySql(_configuration1.GetConnectionString("MySqlConnection")));
+            options.UseMySql(_configuration1.GetConnectionString("MySqlConnection")));
             services.AddMvc();
             services.AddScoped<IStudentRepository, SqlStudentRepository>();
         }
