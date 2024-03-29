@@ -1,30 +1,15 @@
-﻿using StudentManagement.Models;
+﻿using Microsoft.AspNetCore.Http;
+using StudentManagement.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApplication3.Models
+namespace StudentManagement.ViewModels
 {
-    /// <summary>
-    /// 学生模型
-    /// </summary>
-    public class Student
+    public class StudentCreateViewModel
     {
-        // 构造函数
-        public Student(int id, string name, ClassNameEnum className, string email)
-        {
-            this.Name = name;
-            this.Id = id;
-            this.Email = email;
-            this.ClassName = className;
-        }
-        public Student()
-        {
-            // Parameterless constructor
-        }
         public int Id { get; set; }
         [Required(ErrorMessage = "名字不能为空"), MaxLength(50, ErrorMessage = "名字不能超过50个字符")]
         [Display(Name = "姓名")]
@@ -36,6 +21,8 @@ namespace WebApplication3.Models
         [Display(Name = "邮箱")]
         [RegularExpression(@"^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "请输入有效的邮箱地址")]
         public string Email { get; set; }
-        public string PhotoPat { get; set; }
+        [Display(Name="头像")]
+        public IFormFile PhotoPat { get; set; }
+
     }
 }
