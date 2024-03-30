@@ -5,7 +5,7 @@
 <div class="card-deck">
     @foreach (var student in Model)
     {
-        var photoPath = "/images/" + (student.PhotoPat ?? "noimage.png");
+        var photoPath = "/images/avatars/" + (student.PhotoPat ?? "noimage.png");
         <div class="col-lg-4 col-md-6 p-0">
             <div class="card m-3">
                 <div class="card-header">
@@ -20,9 +20,8 @@
 
                 <div class="card-footer text-center">
                     <!--student.Id -->
-                    <a asp-controller="Home" asp-action="Details" asp-route-id="@student.Id" class="btn btn-primary m-1">查看</a>
-
-                    <a href="#" class="btn btn-primary m-1">编辑</a>
+                    <a asp-controller="home" asp-action="details" asp-route-id="@student.Id" class="btn btn-info m-1">查看</a>
+                    <a  href="/home/edit/@student.Id"  class="btn btn-primary m-1">编辑</a>
                     <a href="#" class="btn btn-danger m-1">删除</a>
                 </div>
             </div>

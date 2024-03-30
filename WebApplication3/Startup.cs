@@ -48,21 +48,19 @@ namespace WebApplication3
             //添加静态文件
             app.UseStaticFiles();
             app.UseMvc();
-            //  app.UseMvcWithDefaultRoute();
+            app.UseMvcWithDefaultRoute();
             //
-
-            app.UseMvc(routes =>
+            /*
+                        app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "defaults",
                     template: "{controller=Home}/{action=Index}/{id?}"
                 );
             });
+             
+             */
 
-            app.Run(async (context) =>
-      {
-          await context.Response.WriteAsync("Hello World zzzzz!");
-      });
 
         }
     }

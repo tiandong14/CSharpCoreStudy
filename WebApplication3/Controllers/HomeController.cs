@@ -21,11 +21,69 @@ namespace WebApplication3.Controllers
             this._studentRepository = _studentRepository;
             this._webHostEnvironment = hostingEnvironment;
         }
+        private string ProcessUploadedFile(StudentCreateViewModel model)
+        {
+            string uniqueFileName = null;
+            if (model.Photo != null)
+            {
+                //必须将图片文件上传到wwwroot的images/avatars文件夹中
+                //而要获取wwwroot文件夹的路径，我们需要注入ASP.NET Core提供的
+                //webHostEnvironment服务
+                //通过webHostEnvironment服务去获取wwwroot文件夹的路径
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "avatars");
+                //为了确保文件名是唯一的，我们在文件名后附加一个新的GUID值和一
+                //个下划线
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                // 使用 using 语句
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.Photo.CopyTo(fileStream);
+                }
+            }
+
+            return uniqueFileName;
+        }
+
+        [HttpGet]
+        public ViewResult Edit(int id)
+        {
+            Student student = _studentRepository.GetStudentById(id);
+            StudentEditViewModel studentEditViewModel = new StudentEditViewModel
+            {
+                Id = student.Id,
+                Name = student.Name,
+                Email = student.Email,
+                ClassName = student.ClassName,
+                ExistingPhotoPath = student.PhotoPat
+            };
+            return View(studentEditViewModel);
+        }
+        [HttpPost]
+        public IActionResult Edit(StudentEditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Student student = _studentRepository.GetStudentById(model.Id);
+                student.Name = model.Name;
+                student.Email = model.Email;
+                student.ClassName = model.ClassName;
+                if (model.Photo != null)
+                {
+                    string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "avatars", model.ExistingPhotoPath);
+                    System.IO.File.Delete(filePath);
+                    ProcessUploadedFile(model);
+                }
+                _studentRepository.UpdateStudent(student);
+                return RedirectToAction("index");
+            }
+            return View(model);
+        }
 
 
         [Route("")]
-        [Route("Home")]
-        [Route("Home/Index")]
+        [Route("/home")]
+        [Route("/home/index")]
         public IActionResult Index()
         {
             ViewBag.Title = "zzz";
@@ -69,7 +127,7 @@ namespace WebApplication3.Controllers
                 if (model.Photo != null)
                 {
                     //必须将图片文件上传到wwwroot的images文件夹中
-                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "avatars");
                     //为了确保文件名是唯一的，我们在文件名后附加一个新的GUID值和一个下划线
                     uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
                     string filePath = Path.Combine(uploadsFolder, uniqueFileName);
@@ -91,6 +149,10 @@ namespace WebApplication3.Controllers
 
             return View();
         }
+
+
+
     }
-    //D:\c#Study\WebApplication3\WebApplication3\MyViews\Details.cshtml
+
+
 }

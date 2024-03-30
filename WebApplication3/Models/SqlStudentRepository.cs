@@ -8,26 +8,26 @@ namespace StudentManagement.Models
 {
     public class SqlStudentRepository : IStudentRepository
     {
-        AppDbContext _appDbContext;
+       private readonly AppDbContext _context;
         public SqlStudentRepository(AppDbContext appDb)
         {
-            _appDbContext = appDb;
+            _context = appDb;
         }
 
         public Student AddStudent(Student student)
         {
-            _appDbContext.Students.Add(student);
-            _appDbContext.SaveChanges();
+            _context.Students.Add(student);
+            _context.SaveChanges();
             return student;
         }
 
         public Student DeleteStudent(int id)
         {
-            Student student = _appDbContext.Students.Find(id);
+            Student student = _context.Students.Find(id);
             if (student != null)
             {
-                _appDbContext.Students.Remove(student);
-                _appDbContext.SaveChanges();
+                _context.Students.Remove(student);
+                _context.SaveChanges();
             }
             return student;
         }
@@ -35,21 +35,20 @@ namespace StudentManagement.Models
         public IEnumerable<Student> GetAllStudent()
         {
 
-            return _appDbContext.Students;
+            return _context.Students;
         }
 
         public Student GetStudentById(int id)
         {
-            return _appDbContext.Students.Find(id);
+            return _context.Students.Find(id);
         }
 
-        public Student UpdateStudent(Student student)
+        public Student UpdateStudent(Student updateStudent)
         {
-            var add_student = _appDbContext.Students.Attach(student);
-            add_student.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            _appDbContext.Update(add_student);
-            _appDbContext.SaveChanges();
-            return student;
+            var student = _context.Students.Attach(updateStudent);
+            student.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.SaveChanges();
+            return updateStudent;
         }
     }
 }
