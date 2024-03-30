@@ -1,4 +1,4 @@
-﻿@model Student
+﻿@model StudentCreateViewModel
 
 @{
     ViewBag.Title = "创建学生";
@@ -25,12 +25,13 @@
         </div>
     </div>
 
-
     <div class="form-group row">
-        <label class="col-form-label col-sm-2" asp-for="PhotoPat"></label>
+        <label asp-for="Photo" class="col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
-            <fieldset ></fieldset>
-            <span class="text-danger" asp-validation-for="PhotoPat "></span>
+            <div class="custom-file">
+                <input class="form-control custom-file-input" asp-for="Photo" />
+                <span class="custom-file-label">请选择照片</span>
+            </div>
         </div>
     </div>
 
@@ -41,4 +42,13 @@
 
     </div>
 
+    @section Scripts{
+        <!-- C:\fakepath\u=256816879,771155532&fm=253&fmt=auto&app=120&f=JPEG.png-->
+        <script type="text/javascript">
+            $('.custom-file-input').on("change", function () {
+                var filename = $(this).val().split("\\").pop();
+                $('.custom-file-label').html(filename);
+            })
+        </script>
+    }
 </form>

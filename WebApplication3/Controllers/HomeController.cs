@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting.Internal;
+using Microsoft.AspNetCore.Mvc;
+using StudentManagement.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplication3.Models;
@@ -11,11 +14,12 @@ namespace WebApplication3.Controllers
 
     public class HomeController : Controller
     {
-        private IStudentRepository _studentRepository;
-
-        public HomeController(IStudentRepository _studentRepository)
+        private readonly IStudentRepository _studentRepository;
+        private readonly HostingEnvironment _webHostEnvironment;
+        public HomeController(IStudentRepository _studentRepository, HostingEnvironment hostingEnvironment)
         {
             this._studentRepository = _studentRepository;
+            this._webHostEnvironment = hostingEnvironment;
         }
 
 
@@ -57,12 +61,32 @@ namespace WebApplication3.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Student student)
+        public IActionResult Create(StudentCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
-                Student NewStudent = _studentRepository.AddStudent(student);
-                return RedirectToAction("Details", new { id = NewStudent.Id });
+                string uniqueFileName = null;
+                if (model.Photo != null)
+                {
+                    //必须将图片文件上传到wwwroot的images文件夹中
+                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+                    //为了确保文件名是唯一的，我们在文件名后附加一个新的GUID值和一个下划线
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                }
+                Student newStudent = new Student
+                {
+                    Name = model.Name,
+                    Email = model.Email,
+                    ClassName = model.ClassName,
+                    // 将文件名保存在Student对象的PhotoPath属性中
+                    //它将被保存到数据库Students的表中
+                    PhotoPat = uniqueFileName
+                };
+                _studentRepository.AddStudent(newStudent);
+
+                return RedirectToAction("Details", new { id = newStudent.Id });
             }
 
             return View();

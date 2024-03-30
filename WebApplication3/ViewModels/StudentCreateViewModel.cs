@@ -22,7 +22,7 @@ namespace StudentManagement.ViewModels
         [RegularExpression(@"^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "请输入有效的邮箱地址")]
         public string Email { get; set; }
         [Display(Name="头像")]
-        public IFormFile PhotoPat { get; set; }
+        public IFormFile Photo { get; set; }
 
     }
 }
