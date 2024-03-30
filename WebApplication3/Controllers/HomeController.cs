@@ -70,9 +70,12 @@ namespace WebApplication3.Controllers
                 student.ClassName = model.ClassName;
                 if (model.Photo != null)
                 {
-                    string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "avatars", model.ExistingPhotoPath);
-                    System.IO.File.Delete(filePath);
-                    ProcessUploadedFile(model);
+                    if (model.ExistingPhotoPath != null)
+                    {
+                        string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "avatars", model.ExistingPhotoPath);
+                        System.IO.File.Delete(filePath);
+                    }
+                    student.PhotoPat = ProcessUploadedFile(model);
                 }
                 _studentRepository.UpdateStudent(student);
                 return RedirectToAction("index");
@@ -126,12 +129,7 @@ namespace WebApplication3.Controllers
                 string uniqueFileName = null;
                 if (model.Photo != null)
                 {
-                    //必须将图片文件上传到wwwroot的images文件夹中
-                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "avatars");
-                    //为了确保文件名是唯一的，我们在文件名后附加一个新的GUID值和一个下划线
-                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
-                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                    model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                    uniqueFileName= ProcessUploadedFile(model);
                 }
                 Student newStudent = new Student
                 {

@@ -11,8 +11,10 @@
                 <div class="card-header">
                     <h3 class="card-title">@student.Name</h3>
                 </div>
-                <img class="card-img-top imageThumbnail" asp-append-version="true" src="@photoPath" />
-
+           
+                <div class="card-body text-center">
+                    <img class="card-img-top  imageThumbnail" src="@photoPath" asp-append-version="true" />
+                </div>
 
                 <div class="card-body text-center">
                     <h5 class="card-title">班级：@student.ClassName</h5>
@@ -21,14 +23,14 @@
                 <div class="card-footer text-center">
                     <!--student.Id -->
                     <a asp-controller="home" asp-action="details" asp-route-id="@student.Id" class="btn btn-info m-1">查看</a>
-                    <a  href="/home/edit/@student.Id"  class="btn btn-primary m-1">编辑</a>
+                    <a href="/home/edit/@student.Id" class="btn btn-primary m-1">编辑</a>
                     <a href="#" class="btn btn-danger m-1">删除</a>
                 </div>
             </div>
-         </div>
-            }
-
         </div>
+    }
+
+</div>
 
 
 
