@@ -99,7 +99,7 @@ namespace WebApplication3.Controllers
         [Route("/home/Details/{id?}")]
         public IActionResult Details(int id)
         {
-            throw new Exception("zzzz");
+          //  throw new Exception("zzzz");
             Student stu = _studentRepository.GetStudentById(id);
             if (stu == null)
             {
