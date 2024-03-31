@@ -39,6 +39,10 @@ namespace WebApplication3
                 pageOptions.SourceCodeLineCount = 10;
                 app.UseDeveloperExceptionPage(pageOptions);
             }
+            else
+            {
+                app.UseStatusCodePagesWithRedirects("/Error/{0}");
+            }
 
             //添加默认文件中间件
             // app.UseDefaultFiles(new DefaultFilesOptions
