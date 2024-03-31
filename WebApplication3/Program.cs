@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +19,17 @@ namespace WebApplication3
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+             WebHost.CreateDefaultBuilder(args)
+        .ConfigureLogging((hostingContext, logging) =>
+        {
+            logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+            logging.AddConsole();
+            logging.AddDebug();
+            logging.AddEventSourceLogger();
+            //启用NLog作为日志提供程序之一
+            logging.AddNLog();
+        })
+        .UseStartup<Startup>();
+
     }
 }

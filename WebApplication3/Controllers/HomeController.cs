@@ -49,24 +49,26 @@ namespace WebApplication3.Controllers
         [HttpGet]
         public ViewResult Edit(int id)
         {
-            Student student = _studentRepository.GetStudentById(id);
-            if (student==null) {
-                return View("StudentNotFound",id);
+            throw new Exception("在Deatls抛出异常");
+            Student student_find = _studentRepository.GetStudentById(id);
+            if (student_find == null)
+            {
+                return View("StudentNotFound", id);
             }
             StudentEditViewModel studentEditViewModel = new StudentEditViewModel
             {
-                Id = student.Id,
-                Name = student.Name,
-                Email = student.Email,
-                ClassName = student.ClassName,
-                ExistingPhotoPath = student.PhotoPat
+                Id = student_find.Id,
+                Name = student_find.Name,
+                Email = student_find.Email,
+                ClassName = student_find.ClassName,
+                ExistingPhotoPath = student_find.PhotoPat
             };
             return View(studentEditViewModel);
         }
         [HttpPost]
         public IActionResult Edit(StudentEditViewModel model)
         {
-            if (ModelState.IsValid && model.Id != null)
+            if (ModelState.IsValid && !model.Id.Equals(null))
             {
                 Student student = _studentRepository.GetStudentById(model.Id);
                 student.Name = model.Name;
@@ -97,10 +99,9 @@ namespace WebApplication3.Controllers
             return View(_studentRepository.GetAllStudent());
         }
         [Route("/home/Details/{id?}")]
-        public IActionResult Details(int id)
+        public IActionResult Details(int? id)
         {
-          //  throw new Exception("zzzz");
-            Student stu = _studentRepository.GetStudentById(id);
+            Student stu = _studentRepository.GetStudentById(id??1);
             if (stu == null)
             {
                 Response.StatusCode = 404;
