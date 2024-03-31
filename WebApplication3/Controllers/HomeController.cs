@@ -50,6 +50,9 @@ namespace WebApplication3.Controllers
         public ViewResult Edit(int id)
         {
             Student student = _studentRepository.GetStudentById(id);
+            if (student==null) {
+                return View("StudentNotFound",id);
+            }
             StudentEditViewModel studentEditViewModel = new StudentEditViewModel
             {
                 Id = student.Id,
@@ -96,6 +99,7 @@ namespace WebApplication3.Controllers
         [Route("/home/Details/{id?}")]
         public IActionResult Details(int id)
         {
+            throw new Exception("zzzz");
             Student stu = _studentRepository.GetStudentById(id);
             if (stu == null)
             {

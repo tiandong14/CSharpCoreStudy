@@ -41,7 +41,9 @@ namespace WebApplication3
             }
             else
             {
-                app.UseStatusCodePagesWithRedirects("/Error/{0}");
+                app.UseExceptionHandler("/Error");
+                //处理404
+                app.UseStatusCodePagesWithReExecute("/Error/{0}");
             }
 
             //添加默认文件中间件
