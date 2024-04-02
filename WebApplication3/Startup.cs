@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StudentManagement.CustomerMiddlewares;
 using StudentManagement.Models;
 using System;
 using System.Collections.Generic;
@@ -25,10 +27,23 @@ namespace WebApplication3
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContextPool<AppDbContext>(options =>
-            options.UseMySql(_configuration1.GetConnectionString("MySqlConnection")));
+            options.
+            UseMySql(_configuration1.GetConnectionString("MySqlConnection")));
             services.AddMvc();
             services.AddScoped<IStudentRepository, SqlStudentRepository>();
+            services.AddIdentity<IdentityUser,IdentityRole>()
+                .AddErrorDescriber<CustomIdentityErrorDescriber>()
+                .AddEntityFrameworkStores<AppDbContext>();
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 3;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireDigit = false;
+            });
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -53,6 +68,7 @@ namespace WebApplication3
             //   });
             //添加静态文件
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseMvc();
             app.UseMvcWithDefaultRoute();
             //

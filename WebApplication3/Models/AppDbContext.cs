@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using WebApplication3.Models;
 
 namespace StudentManagement.Models
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext
     {
         public AppDbContext(DbContextOptions options) : base(options)
         {
@@ -13,6 +14,7 @@ namespace StudentManagement.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //种子数据
+            base.OnModelCreating(modelBuilder);
             ModelBuilderExtensions.Seed(modelBuilder);
         }
     }

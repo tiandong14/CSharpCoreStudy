@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> _signInManager
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -24,6 +27,31 @@
                         @*<a class="nav-link" asp-controller="home" asp-action="create">添加学生</a>*@
                         <a class="nav-link" href="/home/create">添加学生</a>
                     </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    @*如果用户已登录，则显示注销链接*@
+                    @if (_signInManager.IsSignedIn(User))
+                    {
+                        <li class="nav-item">
+                            <form method="post" action="/account/logout">
+                                <button type="submit" style="width:auto"
+                                        class="nav-link btn btn-link py-0">
+                                    注销 @User.Identity.Name
+                                </button>
+                            </form>
+
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/account/register"> 注册 </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="/account/login"> 登录 </a>
+                        </li>
+                    }
+
                 </ul>
             </div>
         </nav>
