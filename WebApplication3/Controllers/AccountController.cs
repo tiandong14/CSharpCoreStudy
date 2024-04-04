@@ -58,13 +58,22 @@ namespace StudentManagement.Controllers
             return View(model);
         }
 
-        //以防方法滥用
+        //以防方法滥用,退出登录改用Post
         [HttpPost]
-        public async Task<IActionResult> Logout() {
+        public async Task<IActionResult> Logout()
+        {
             await signInManager.SignOutAsync();
             return RedirectToAction("index", "home");
         }
-
+        //判断邮件是否在使用中
+        public async Task<IActionResult> IsEmailInUse(string email)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+            if (user == null) {
+                return Json(true);
+            }
+            return Json($"改邮箱{email}已经被注册"); ;
+        }
         [HttpGet]
         public IActionResult Login()
         {
@@ -72,20 +81,26 @@ namespace StudentManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model, string ReturnUrl)
         {
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 var result = await signInManager.PasswordSignInAsync(
-                      userName:model.Email,password:model.Password,  isPersistent: model.RememberMe,lockoutOnFailure: false);
+                      userName: model.Email, password: model.Password, isPersistent: model.RememberMe, lockoutOnFailure: false);
 
-                if (result.Succeeded) {
+                if (result.Succeeded)
+                {
                     TempData["SuccessMessage"] = "登录成功";
-
+                    if (!string.IsNullOrEmpty(ReturnUrl))
+                    {
+                        //避免开放式重定向漏洞
+                        return LocalRedirect(ReturnUrl);
+                    }
                     return RedirectToAction("index", "home");
                 }
                 ModelState.AddModelError(string.Empty, "登录失败,重试");
             }
-          
+
             return View(model);
         }
     }

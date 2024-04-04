@@ -50,7 +50,6 @@ namespace WebApplication3.Controllers
         [HttpGet]
         public ViewResult Edit(int id)
         {
-            throw new Exception("在Deatls抛出异常");
             Student student_find = _studentRepository.GetStudentById(id);
             if (student_find == null)
             {
@@ -102,7 +101,7 @@ namespace WebApplication3.Controllers
         [Route("/home/Details/{id?}")]
         public IActionResult Details(int? id)
         {
-            Student stu = _studentRepository.GetStudentById(id??1);
+            Student stu = _studentRepository.GetStudentById(id ?? 1);
             if (stu == null)
             {
                 Response.StatusCode = 404;
