@@ -20,9 +20,13 @@ namespace StudentManagement.Models
         [Display(Name = "密码")]
         public string Password { get; set; }
         [Required]
+        [Display(Name ="城市")]
+        public string City { get; set; }
+
+        [Required]
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage ="密码不一致,请重新输入")]
-        [Display(Name = "密码")]
+        [Display(Name = "确认密码")]
         public string ConfirmPassword { get; set; }
     }
 }

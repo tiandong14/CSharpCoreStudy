@@ -9,6 +9,6 @@ namespace StudentManagement.Models
     //自定义user类
     public class ApplicationUser:IdentityUser
     {
-        public string city { get; set; }
+        public string City { get; set; }
     }
 }

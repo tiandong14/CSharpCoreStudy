@@ -32,7 +32,7 @@ namespace WebApplication3
             UseMySql(_configuration1.GetConnectionString("MySqlConnection")));
             services.AddMvc();
             services.AddScoped<IStudentRepository, SqlStudentRepository>();
-            services.AddIdentity<IdentityUser,IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddErrorDescriber<CustomIdentityErrorDescriber>()
                 .AddEntityFrameworkStores<AppDbContext>();
 
