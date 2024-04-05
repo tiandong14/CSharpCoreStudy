@@ -58,6 +58,15 @@ namespace StudentManagement.Controllers
             //todo
             return View();
         }
+        public async Task<IActionResult>  EditRole(string id) {
+            var Role=await _roleManager.FindByIdAsync(id);
+            if (Role == null) {
+                ViewBag.ErrorMessage =$"角色id={id}的信息不存在，请重试。";
+                return View("NotFound");
+            }
+            EditRoleViewModel
+            return View();
+        }
 
     }
 }
