@@ -6,6 +6,7 @@
 
 @if (Model.Any())
 {
+    <a asp-action="CreateRole" asp-controller="Admin" class="btn btn-primary mt-2 mb-2" style="width:auto">添加新角色</a>
     @foreach (var role in Model)
     {
         <div class="card mb-3">
@@ -15,19 +16,21 @@
             </div>
             <div class="card-footer">
                 <a href="#" class="btn btn-primary">编辑</a>
-                <a href="#" class="btn btn-primary">删除</a>
+                <a href="#" class="btn btn-danger">删除</a>
 
             </div>
         </div>
 
     }
-}else{
-  <div class="card">
-      <div class="card-header">尚未创建任何角色</div>
-      <div class="card-body">
-          <h5 class="card-title">点击下面按钮创建角色</h5>
+}
+else
+{
+    <div class="card">
+        <div class="card-header">尚未创建任何角色</div>
+        <div class="card-body">
+            <h5 class="card-title">点击下面按钮创建角色</h5>
             <a asp-action="CreateRole" asp-controller="Admin" class="btn btn-primary" style="width:auto">创建角色</a>
 
-      </div>
-  </div>
+        </div>
+    </div>
 }
