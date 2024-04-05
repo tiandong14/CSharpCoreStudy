@@ -39,7 +39,7 @@ namespace StudentManagement.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    City=model.City
+                    City = model.City
                 };
                 //将用户数据存储在AspNetUsers数据库表中
                 var result = await userManager.CreateAsync(user, model.Password);
@@ -70,7 +70,8 @@ namespace StudentManagement.Controllers
         public async Task<IActionResult> IsEmailInUse(string email)
         {
             var user = await userManager.FindByEmailAsync(email);
-            if (user == null) {
+            if (user == null)
+            {
                 return Json(true);
             }
             return Json($"改邮箱{email}已经被注册"); ;
